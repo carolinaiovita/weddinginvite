@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dorin & Carolina – Wedding Invitation</title>
+  <link rel="icon" type="image/png" href="couple.jpg" />
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- Language -->
+  <div class="lang-switch">
+    <button onclick="setLang('ro')">RO</button>
+    <button onclick="setLang('it')">IT</button>
+    <button onclick="setLang('en')">EN</button>
+  </div>
+
+  <!-- Hero -->
+  <section id="hero" class="section fade">
+    <img src="couple.jpg" class="hero-img" alt="Dorin & Carolina">
+
+    <h1>Dorin & Carolina</h1>
+    <p class="subtitle" data-i18n="subtitle"></p>
+  </section>
+
+  <!-- Invitation -->
+  <section id="invite" class="section fade">
+    <span class="section-icon" title="Invitation">&#128233;</span>
+    <h2 data-i18n="inviteTitle"></h2>
+    <p data-i18n="inviteParents" class="signature"></p>
+    <h4 data-i18n="parents"><i>Buraga Ion & Ada | Iovița Vadim & Inga</i></h4>
+    <p data-i18n="inviteText"></p>
+  </section>
+
+  <!-- Date -->
+  <section id="gift_date_location" class="section fade">
+    <span class="section-icon" title="Date">&#128197;</span>
+    <h2 data-i18n="dateTitle"></h2>
+    <p class="big" data-i18n="dateBig"></p>
+    <div id="countdown" class="countdown"></div>
+    <div class="date-location-divider"></div>
+    <span class="section-icon" title="Location">&#128205;</span>
+    <h2 data-i18n="locationTitle"></h2>
+    <p class="big" data-i18n="locationBig"></p>
+
+    <a class="map"
+       target="_blank"
+       data-i18n="locationView"
+       href="https://maps.app.goo.gl/xaEBfgjEoVVtkTD6A">
+    </a>
+  </section>
+
+    <!-- Presence Confirmation Form -->
+  <section id="confirmation" class="section fade">
+    <span class="section-icon" title="Confirmation">&#x2705;</span>
+    <h2 data-i18n="confirmationTitle"></h2>
+    <form id="contact-form"  target="hidden_iframe" method="POST" 
+    action="https://script.google.com/macros/s/AKfycbz3R8Cz0FPRqlXbYQiBodIHPSBl-nJ3cR2D1rX1QTOkOgxs1GNJnHHhw64AnLjQuN6NIQ/exec">
+      <div>
+        <label for="name" data-i18n="formNameLabel"></label><br>
+        <input type="text" id="name" name="name" required>
+      </div>
+      <div>
+        <label data-i18n="formAttendanceLabel"></label><br>
+        <div class="form-attendance-group">
+          <input type="radio" id="will-come" name="attendance" value="yes" required>
+          <label for="will-come" class="form-attendance-btn" data-i18n="formWillCome"></label>
+          <input type="radio" id="not-come" name="attendance" value="no">
+          <label for="not-come" class="form-attendance-btn" data-i18n="formWillNotCome"></label>
+        </div>
+      </div>
+      <div class="partner-toggle">
+        <label class="partner-switch">
+          <input type="checkbox" id="partner" name="partner">
+          <span class="partner-slider"></span>
+        </label>
+        <span class="partner-label" data-i18n="formPartnerLabel"></span>
+      </div>
+      <div>
+        <label for="message" data-i18n="formMessageLabel"></label><br>
+        <textarea id="message" name="message" rows="3"></textarea>
+      </div>
+      <button type="submit" data-i18n="formSendButton"></button>
+    </form>
+
+      <!-- hidden iframe to catch submission -->
+  <iframe name="hidden_iframe" style="display:none;"></iframe>
+  </section>
+
+  <section id="closing" class="section fade">
+    <span class="section-icon" title="Celebration">&#127863;</span>
+    <p data-i18n="giftText" class="gift-text"></p>
+    <div class="closing-message">
+      <span class="hearts" data-i18n="closingHearts"></span><br>
+      <span class="look-forward" data-i18n="closingLookForward"></span><br>
+      <span class="names" data-i18n="closingNames"></span>
+    </div>
+  </section>
+
+  <div id="music-player" class="music-player">
+    <button id="music-toggle" aria-label="Play music">
+      <span id="music-icon">&#119070;</span>
+      <span id="music-label">Play</span>
+    </button>
+    <audio id="wedding-music" src="music.mp3" preload="none"></audio>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
