@@ -6,9 +6,34 @@
   <title>Dorin & Carolina – Wedding Invitation</title>
   <link rel="icon" type="image/png" href="couple.jpg" />
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Allura&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Ecran „Deschide invitația” – se încarcă frumos la click -->
+  <div id="invitation-cover" class="invitation-cover" aria-hidden="false">
+    <div class="cover-bg"></div>
+    <div class="cover-card">
+      <p class="cover-label" data-i18n="openInvitation">Ai primit o invitație</p>
+      <div class="cover-divider"></div>
+      <p class="cover-names">Dorin & Carolina</p>
+      <button type="button" id="cover-open-btn" class="cover-open-btn" data-i18n="openButton">Deschide invitația</button>
+    </div>
+    <p class="cover-hint">Apasă butonul pentru a deschide</p>
+  </div>
+
+  <!-- Floating petals (injected by JS) -->
+  <div id="petals-container" class="petals-container" aria-hidden="true"></div>
+
+  <!-- Decorațiuni laterale (mandarine și flori) -->
+  <div class="corner-deco" aria-hidden="true">
+    <div class="corner-deco-left">
+      <img src="mandarine1.png" alt="" width="280" height="400" />
+    </div>
+    <div class="corner-deco-right">
+      <img src="mandarine2.png" alt="" width="280" height="400" />
+    </div>
+  </div>
 
   <!-- Language -->
   <div class="lang-switch">
@@ -17,87 +42,88 @@
     <button onclick="setLang('en')">EN</button>
   </div>
 
-  <!-- Hero -->
-  <section id="hero" class="section fade">
-    <img src="couple.jpg" class="hero-img" alt="Dorin & Carolina">
-
-    <h1>Dorin & Carolina</h1>
-    <p class="subtitle" data-i18n="subtitle"></p>
-  </section>
-
-  <!-- Invitation -->
-  <section id="invite" class="section fade">
-    <span class="section-icon" title="Invitation">&#128233;</span>
-    <h2 data-i18n="inviteTitle"></h2>
-    <p data-i18n="inviteParents" class="signature"></p>
-    <h4 data-i18n="parents"><i>Buraga Ion & Ada | Iovița Vadim & Inga</i></h4>
-    <p data-i18n="inviteText"></p>
-  </section>
-
-  <!-- Date -->
-  <section id="gift_date_location" class="section fade">
-    <span class="section-icon" title="Date">&#128197;</span>
-    <h2 data-i18n="dateTitle"></h2>
-    <p class="big" data-i18n="dateBig"></p>
-    <div id="countdown" class="countdown"></div>
-    <div class="date-location-divider"></div>
-    <span class="section-icon" title="Location">&#128205;</span>
-    <h2 data-i18n="locationTitle"></h2>
-    <p class="big" data-i18n="locationBig"></p>
-
-    <a class="map"
-       target="_blank"
-       data-i18n="locationView"
-       href="https://maps.app.goo.gl/xaEBfgjEoVVtkTD6A">
-    </a>
-  </section>
-
-    <!-- Presence Confirmation Form -->
-  <section id="confirmation" class="section fade">
-    <span class="section-icon" title="Confirmation">&#x2705;</span>
-    <h2 data-i18n="confirmationTitle"></h2>
-    <form id="contact-form"  target="hidden_iframe" method="POST" 
-    action="https://script.google.com/macros/s/AKfycbz3R8Cz0FPRqlXbYQiBodIHPSBl-nJ3cR2D1rX1QTOkOgxs1GNJnHHhw64AnLjQuN6NIQ/exec">
-      <div>
-        <label for="name" data-i18n="formNameLabel"></label><br>
-        <input type="text" id="name" name="name" required>
-      </div>
-      <div>
-        <label data-i18n="formAttendanceLabel"></label><br>
-        <div class="form-attendance-group">
-          <input type="radio" id="will-come" name="attendance" value="yes" required>
-          <label for="will-come" class="form-attendance-btn" data-i18n="formWillCome"></label>
-          <input type="radio" id="not-come" name="attendance" value="no">
-          <label for="not-come" class="form-attendance-btn" data-i18n="formWillNotCome"></label>
+  <!-- Conținut invitație -->
+  <main class="invitation-paper">
+    <section id="hero" class="section fade">
+      <div class="calendar-block">
+        <p class="calendar-month" data-i18n="calendarMonth">AUGUST</p>
+        <div class="calendar-grid">
+          <span class="cal-dow" data-i18n="calDow"></span>
+          <span class="cal-num">5</span><span class="cal-num">6</span><span class="cal-num">7</span>
+          <span class="cal-num cal-heart"><span class="heart-wrap">08</span></span>
+          <span class="cal-num">9</span><span class="cal-num">10</span><span class="cal-num">11</span>
         </div>
       </div>
-      <div class="partner-toggle">
-        <label class="partner-switch">
-          <input type="checkbox" id="partner" name="partner">
-          <span class="partner-slider"></span>
-        </label>
-        <span class="partner-label" data-i18n="formPartnerLabel"></span>
-      </div>
-      <div>
-        <label for="message" data-i18n="formMessageLabel"></label><br>
-        <textarea id="message" name="message" rows="3"></textarea>
-      </div>
-      <button type="submit" data-i18n="formSendButton"></button>
-    </form>
+      <p class="save-the-date" data-i18n="saveTheDate">save the date</p>
+      <div class="divider-line"></div>
+      <h1 class="hero-title">Dorin & Carolina</h1>
+      <div class="divider-line"></div>
+      <p class="invite-parents" data-i18n="inviteParents"></p>
+      <p class="parents-names" data-i18n="parents"><i>Buraga Ion & Ada & Iovița Vadim & Inga</i></p>
+      <img src="couple.jpg" class="hero-img" alt="Dorin & Carolina">
+    </section>
 
-      <!-- hidden iframe to catch submission -->
-  <iframe name="hidden_iframe" style="display:none;"></iframe>
-  </section>
+    <!-- Invitation text -->
+    <section id="invite" class="section fade">
+      <p class="invite-text" data-i18n="inviteText"></p>
+    </section>
 
-  <section id="closing" class="section fade">
-    <span class="section-icon" title="Celebration">&#127863;</span>
-    <p data-i18n="giftText" class="gift-text"></p>
-    <div class="closing-message">
-      <span class="hearts" data-i18n="closingHearts"></span><br>
-      <span class="look-forward" data-i18n="closingLookForward"></span><br>
-      <span class="names" data-i18n="closingNames"></span>
-    </div>
-  </section>
+    <!-- Date & location -->
+    <section id="gift_date_location" class="section fade">
+      <p class="big date-time" data-i18n="dateBig"></p>
+      <div id="countdown" class="countdown"></div>
+      <div class="divider-line"></div>
+      <p class="location-text" data-i18n="locationBig"></p>
+      <a class="map" target="_blank" data-i18n="locationView" href="https://maps.app.goo.gl/xaEBfgjEoVVtkTD6A"></a>
+    </section>
+
+    <!-- Confirmation form -->
+    <section id="confirmation" class="section fade">
+      <h2 class="section-heading" data-i18n="confirmationTitle"></h2>
+      <form id="contact-form" target="hidden_iframe" method="POST"
+        action="https://script.google.com/macros/s/AKfycbz3R8Cz0FPRqlXbYQiBodIHPSBl-nJ3cR2D1rX1QTOkOgxs1GNJnHHhw64AnLjQuN6NIQ/exec">
+        <div>
+          <label for="name" data-i18n="formNameLabel"></label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+          <label data-i18n="formAttendanceLabel"></label>
+          <div class="form-attendance-group">
+            <input type="radio" id="will-come" name="attendance" value="yes" required>
+            <label for="will-come" class="form-attendance-btn" data-i18n="formWillCome"></label>
+            <input type="radio" id="not-come" name="attendance" value="no">
+            <label for="not-come" class="form-attendance-btn" data-i18n="formWillNotCome"></label>
+          </div>
+        </div>
+        <div class="partner-toggle">
+          <label class="partner-switch">
+            <input type="checkbox" id="partner" name="partner">
+            <span class="partner-slider"></span>
+          </label>
+          <span class="partner-label" data-i18n="formPartnerLabel"></span>
+        </div>
+        <div>
+          <label for="message" data-i18n="formMessageLabel"></label>
+          <textarea id="message" name="message" rows="3"></textarea>
+        </div>
+        <button type="submit" data-i18n="formSendButton"></button>
+      </form>
+      <iframe name="hidden_iframe" style="display:none;"></iframe>
+    </section>
+
+    <!-- Closing: card cadou (text + vin) + hearts + names -->
+    <section id="closing" class="section fade">
+      <div class="gift-card">
+        <p data-i18n="giftText" class="gift-text"></p>
+        <img src="vin.png" alt="" class="gift-card-img" width="160" height="160" />
+      </div>
+      <div class="closing-message">
+        <span class="hearts" data-i18n="closingHearts"></span>
+        <span class="look-forward" data-i18n="closingLookForward"></span>
+        <span class="names" data-i18n="closingNames"></span>
+      </div>
+    </section>
+  </main>
 
   <div id="music-player" class="music-player">
     <button id="music-toggle" aria-label="Play music">

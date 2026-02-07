@@ -1,5 +1,8 @@
 const translations = {
   ro: {
+    saveTheDate: "save the date",
+    calendarMonth: "AUGUST",
+    calDow: "Mie  Joi  Vin  Sâm  Dum  Lun  Mar",
     subtitle: "Ne căsătorim",
     dateTitle: "Data nunții",
     dateBig: "8 august 2026 | Ora 18:00",
@@ -27,9 +30,14 @@ const translations = {
     formSuccessMessage: "Vă mulțumim! Confirmarea a fost trimisă.",
     closingLookForward: "Așteptăm cu drag să vă vedem,",
     closingNames: "Carolina & Dorin",
-    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;"
+    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
+    openInvitation: "Ai primit o invitație",
+    openButton: "Deschide invitația"
   },
   it: {
+    saveTheDate: "save the date",
+    calendarMonth: "AGOSTO",
+    calDow: "Mer  Gio  Ven  Sab  Dom  Lun  Mar",
     subtitle: "Ci sposiamo",
     dateTitle: "Data del matrimonio",
     dateBig: "8 agosto 2026 | Ore 18:00",
@@ -53,9 +61,14 @@ const translations = {
     formSuccessMessage: "Grazie! La tua conferma è stata inviata.",
     closingLookForward: "Non vediamo l'ora di vedervi,",
     closingNames: "Carolina & Dorin",
-    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;"
+    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
+    openInvitation: "Hai ricevuto un invito",
+    openButton: "Apri l'invito"
   },
   en: {
+    saveTheDate: "save the date",
+    calendarMonth: "AUGUST",
+    calDow: "Wed  Thu  Fri  Sat  Sun  Mon  Tue",
     subtitle: "We are getting married",
     dateTitle: "Wedding Date",
     dateBig: "8 August 2026 | 6:00 PM",
@@ -83,7 +96,9 @@ const translations = {
     formSuccessMessage: "Thank you! Your confirmation has been sent.",
     closingLookForward: "We look forward to seeing you,",
     closingNames: "Carolina & Dorin",
-    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;"
+    closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
+    openInvitation: "You've received an invitation",
+    openButton: "Open the invitation"
   }
 };
 
@@ -161,20 +176,17 @@ if (musicBtn && musicAudio && musicIcon && musicLabel) {
 const form = document.getElementById("contact-form");
 
 form.addEventListener("submit", () => {
-  // DO NOT preventDefault
-  // Let the browser submit the form to the hidden iframe
-
-  // show success message AFTER submission
+  // DO NOT preventDefault – form submits to hidden iframe
+  runConfetti();
   setTimeout(() => {
     const parent = form.parentElement;
-    form.remove(); // now safe
+    form.remove();
     const msg = document.createElement('div');
     msg.className = 'form-success';
-    // Localized success message
     const lang = document.documentElement.lang || 'ro';
     msg.innerText = translations[lang]?.formSuccessMessage || 'Thank you! Your confirmation has been sent.';
     parent.appendChild(msg);
-  }, 400); // small delay to allow submission
+  }, 400);
 });
 
 // Attendance radio button styling as buttons
@@ -249,14 +261,86 @@ document.querySelectorAll('.lang-switch button').forEach(b => {
   b.addEventListener('click', onLangChangeUpdateCountdown);
 });
 
+// ===== Deschide invitația – încărcare frumoasă + petale =====
+const invitationCover = document.getElementById('invitation-cover');
+const coverOpenBtn = document.getElementById('cover-open-btn');
+const petalsContainer = document.getElementById('petals-container');
+const petalTypes = ['blossom', 'orange', 'sage'];
+
+function createPetal(isBurst) {
+  const p = document.createElement('div');
+  p.className = 'petal ' + petalTypes[Math.floor(Math.random() * 3)] + (isBurst ? ' petal-burst' : '');
+  p.style.setProperty('--x', Math.random() * 100 + '%');
+  p.style.setProperty('--delay', (isBurst ? Math.random() * 8 : Math.random() * 20) + 's');
+  p.style.setProperty('--dur', (isBurst ? 14 + Math.random() * 12 : 16 + Math.random() * 14) + 's');
+  p.style.setProperty('--r', Math.random() * 360 + 'deg');
+  return p;
+}
+
+if (invitationCover && coverOpenBtn) {
+  coverOpenBtn.addEventListener('click', () => {
+    invitationCover.classList.add('opened');
+    invitationCover.setAttribute('aria-hidden', 'true');
+    document.body.classList.add('invitation-opened');
+
+    // La deschidere: ploaie densă de petale (cad o dată, apoi dispar)
+    if (petalsContainer) {
+      for (let i = 0; i < 52; i++) {
+        const p = createPetal(true);
+        p.addEventListener('animationend', () => p.remove());
+        petalsContainer.appendChild(p);
+      }
+      // Petale permanente – mai puține, cad continuu (ca înainte)
+      for (let i = 0; i < 18; i++) {
+        petalsContainer.appendChild(createPetal(false));
+      }
+    }
+  });
+}
+
+// ===== Confetti on RSVP submit =====
+function runConfetti() {
+  const colors = ['#d4782a', '#e8952e', '#6b7c5e', '#f5f2eb', '#fffef8'];
+  const container = document.createElement('div');
+  container.style.cssText = 'position:fixed;inset:0;pointer-events:none;z-index:9999;';
+  document.body.appendChild(container);
+  for (let i = 0; i < 55; i++) {
+    const el = document.createElement('div');
+    el.className = 'confetti-piece';
+    el.style.left = '50%';
+    el.style.top = '40%';
+    el.style.background = colors[Math.floor(Math.random() * colors.length)];
+    const tx = (Math.random() - 0.5) * 400;
+    const ty = (Math.random() - 0.5) * 300 - 100;
+    const rot = (Math.random() - 0.5) * 720;
+    el.style.setProperty('--tx', tx + 'px');
+    el.style.setProperty('--ty', ty + 'px');
+    el.style.setProperty('--rot', rot + 'deg');
+    container.appendChild(el);
+  }
+  setTimeout(() => container.remove(), 2600);
+}
+
+// ===== 3D tilt on sections (desktop only) =====
+if (window.matchMedia('(hover: hover)').matches) {
+  document.querySelectorAll('.section').forEach(section => {
+    section.classList.add('tilt-enabled');
+    section.addEventListener('mousemove', (e) => {
+      const rect = section.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      section.style.transform = `translateY(0) rotateY(${x * 5}deg) rotateX(${-y * 5}deg)`;
+    });
+    section.addEventListener('mouseleave', () => { section.style.transform = ''; });
+  });
+}
+
 // Initialize
 setLang('ro');
 observeSectionsForStepper();
 
-// Re-generate stepper labels when language changes via buttons
 document.querySelectorAll('.lang-switch button').forEach(b => {
   b.addEventListener('click', () => {
-    // small delay to ensure language code has been set by onclick handlers
     setTimeout(() => setLang(document.documentElement.lang || 'ro'), 10);
   });
 });
