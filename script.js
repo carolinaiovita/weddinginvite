@@ -151,11 +151,11 @@ const musicBtn = document.getElementById('music-toggle');
 const musicAudio = document.getElementById('wedding-music');
 const musicIcon = document.getElementById('music-icon');
 const musicLabel = document.getElementById('music-label');
+let musicPlaying = false;
 
 if (musicBtn && musicAudio && musicIcon && musicLabel) {
-  let playing = false;
   musicBtn.addEventListener('click', () => {
-    if (playing) {
+    if (musicPlaying) {
       musicAudio.pause();
       musicIcon.innerHTML = '&#119070;'; // musical G clef
       musicLabel.textContent = 'Play';
@@ -164,10 +164,10 @@ if (musicBtn && musicAudio && musicIcon && musicLabel) {
       musicIcon.innerHTML = '&#10074;&#10074;'; // pause icon
       musicLabel.textContent = 'Pause';
     }
-    playing = !playing;
+    musicPlaying = !musicPlaying;
   });
   musicAudio.addEventListener('ended', () => {
-    playing = false;
+    musicPlaying = false;
     musicIcon.innerHTML = '&#119070;';
     musicLabel.textContent = 'Play';
   });
@@ -186,6 +186,10 @@ form.addEventListener("submit", () => {
     const lang = document.documentElement.lang || 'ro';
     msg.innerText = translations[lang]?.formSuccessMessage || 'Thank you! Your confirmation has been sent.';
     parent.appendChild(msg);
+    // După 3 secunde, scroll automat la capătul paginii
+    setTimeout(() => {
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: 'smooth' });
+    }, 3000);
   }, 400);
 });
 
@@ -282,6 +286,27 @@ if (invitationCover && coverOpenBtn) {
     invitationCover.classList.add('opened');
     invitationCover.setAttribute('aria-hidden', 'true');
     document.body.classList.add('invitation-opened');
+
+    // Muzică: pornește la 50% volum, apoi crește treptat până la maxim
+    if (musicAudio) {
+      function startVolumeFade() {
+        musicAudio.volume = 0.5;
+        var volFade = setInterval(function () {
+          if (musicAudio.volume >= 1) {
+            musicAudio.volume = 1;
+            clearInterval(volFade);
+            return;
+          }
+          musicAudio.volume = Math.min(1, musicAudio.volume + 0.05);
+        }, 200);
+      }
+      musicAudio.addEventListener('playing', startVolumeFade, { once: true });
+      musicAudio.volume = 0.5;
+      musicAudio.play().catch(function noop() {});
+      musicPlaying = true;
+      if (musicIcon) musicIcon.innerHTML = '&#10074;&#10074;';
+      if (musicLabel) musicLabel.textContent = 'Pause';
+    }
 
     // La deschidere: ploaie densă de petale (cad o dată, apoi dispar)
     if (petalsContainer) {
