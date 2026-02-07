@@ -32,7 +32,8 @@ const translations = {
     closingNames: "Carolina & Dorin",
     closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
     openInvitation: "Ai primit o invitație",
-    openButton: "Deschide invitația"
+    openButton: "Deschide invitația",
+    coverHint: "Apasă butonul pentru a deschide"
   },
   it: {
     saveTheDate: "save the date",
@@ -63,7 +64,8 @@ const translations = {
     closingNames: "Carolina & Dorin",
     closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
     openInvitation: "Hai ricevuto un invito",
-    openButton: "Apri l'invito"
+    openButton: "Apri l'invito",
+    coverHint: "Clicca il pulsante per aprire"
   },
   en: {
     saveTheDate: "save the date",
@@ -98,7 +100,8 @@ const translations = {
     closingNames: "Carolina & Dorin",
     closingHearts: "&#10084;&#65039; &#10084;&#65039; &#10084;&#65039;",
     openInvitation: "You've received an invitation",
-    openButton: "Open the invitation"
+    openButton: "Open the invitation",
+    coverHint: "Click the button to open"
   }
 };
 
