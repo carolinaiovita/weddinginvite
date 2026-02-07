@@ -430,7 +430,13 @@ body.invitation-opened .invitation-paper {
 
 .cal-num {
   min-width: 28px;
+  min-height: 1.35em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .cal-heart {
@@ -583,6 +589,17 @@ h1 {
   font-weight: 700;
   color: var(--orange);
   font-size: 1.35em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.countdown-square > span:first-of-type {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 1.2em;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .countdown-label {
